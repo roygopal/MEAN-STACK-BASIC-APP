@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="filterPage">
+        <div class="headerStyle title">Filters</div>
+        <div class="headerStyle">
+            <div class="title">Price</div>
+            <select ng-model="minValue" ng-change="getFilterProduct()">
+                <option value="{{price.key}}" ng-selected="price.key == 'Min'" ng-repeat="price in priceValues">{{price.displayValue}}</option>
+            </select>
+            <span style="margin: 0 6px 0 6px">to</span>
+            <select ng-model="maxValue" ng-change="getFilterProduct()">
+                <option value="{{price1.key}}"  ng-selected="price1.key == 'Max'" ng-repeat="price1 in priceValues">{{price1.displayValue}}</option>
+            </select>
+        </div>
+        <div class="headerStyle">
+            <div class="title">Brand</div>
+            <input type="search" ng-minlength="2" name="search" placeholder="Search Brand" ng-model="searchTerm"
+                   ng-change="getFilterProduct()">
+        </div>
+        <div class="headerStyle">
+            <div class="title">Color</div>
+            <div style="display: flex; align-items: center;" ng-repeat="colors in colorValues">
+                <input type="checkbox" class="ui-checkbox" ng-model="colors.Selected" ng-click="getFilterProduct()" />
+                <svg width="15" height="15" style="padding: 0 5px;">
+                    <circle cx="7" cy="7" r="6" stroke="" stroke-width="4" fill="{{colors.color}}"></circle>
+                </svg>
+                <span>{{colors.title}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="productContainer">
+        <div class="sort">
+            <div style="margin: 0 20px 10px 10px;color: lightseagreen; font-weight: bold;" ng-if="searchTerm.length >=2 && searchCount != 9999 ">Showing {{searchCount}} results for product "{{searchTerm}}"</div>
+            <div style="display: flex;">
+                <div style="padding: 0 20px 0 10px;">Order By:</div>
+                <select style="width: 200px" ng-model="sortProduct" ng-change="sortProductByPrice(sortProduct)">
+                    <option value="Relevance" ng-selected="Relevance">Relevance</option>
+                    <option value="Price Aesc">Price - Low To High</option>
+                    <option value="Price Desc">Price - High To Low</option>
+                    <option value="Discount">Discount</option>
+                    <option value="Rating">Rating</option>
+                </select>
+            </div>
+        </div>
+        <div class="card-container">
+            <div ng-repeat="product in productData">
+                <div class="ui-card">
+                    <img src="{{product.image}}">
+                    <div style="margin-left: 5px;">
+                        <div class="productTitle">{{product.title}}</div>
+                        <div style="background: lightgrey; width: 40px;margin: 5px 0 3px;">
+                            <span>{{product.rating}}</span>
+                            <span class="fa fa-star checked"></span>
+                        </div>
+                        <span>&#x20B9;</span>
+                        <span>{{product.price.final_price}}</span>
+                        <span ng-if="product.price.mrp" style="margin-left: 10px;">&#x20B9;</span>
+                        <span style="text-decoration: line-through; color: lightgrey; margin-right: 10px;"
+                              ng-if="product.price.mrp">{{product.price.mrp}}</span>
+                        <div style="display: inline-block; background: lightgrey">
+                            <span ng-if="product.price.mrp">Off:</span>
+                            <span ng-if="product.price.mrp"
+                                  ng-bind="((100- (product.price.final_price/product.price.mrp)*100) | number:2)+'%'"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
