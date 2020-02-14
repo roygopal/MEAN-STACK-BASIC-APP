@@ -1,5 +1,5 @@
 
-# MEAN STACK BASIC APP
+# Ecommerce Product APP
 A simple application to start on MEAN stack 
 
 ### 1. Development in progress ...  
