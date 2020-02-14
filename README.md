@@ -1,6 +1,6 @@
 
 # Ecommerce Product APP
-A simple application to start on MEAN stack 
+An eCommerce site to show product list using MEAN stack framework.
 
 ### 1. Development in progress ...  
 
