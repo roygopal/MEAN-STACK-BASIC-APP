@@ -2,16 +2,16 @@
 # MEAN STACK BASIC APP
 A simple application to start on MEAN stack 
 
-### Development in progress ...  
+### 1. Development in progress ...  
 
-### Steps to start the application 
+### 2. Steps to start the application 
 Clone this repository.  
 Do `npm install`  
 Run `webpack --config webpack.config.js` to generate bundle file  
 Start application server using `node app.js`  
 Open application at `http://localhost:8080`  
 
-## App Screen: 
+## 3. App Screen: 
 <img width="748" alt="Screenshot 2020-02-14 at 11 41 02 AM" src="https://user-images.githubusercontent.com/28870722/74506236-36c9d980-4f1f-11ea-8553-b038074f9ccf.png">
 
 <img width="880" alt="Screenshot 2020-02-14 at 11 41 41 AM" src="https://user-images.githubusercontent.com/28870722/74506238-3b8e8d80-4f1f-11ea-8a68-e54ff3543722.png">
