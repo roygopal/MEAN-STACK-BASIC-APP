@@ -1,5 +1,8 @@
+
 # MEAN STACK BASIC APP
 A simple application to start on MEAN stack 
+
+### Development in progress ...  
 
 ### Steps to start the application 
 Clone this repository.  
