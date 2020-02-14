@@ -1,0 +1,58 @@
+<div class="SignUpForm" ng-if="!isRequired()">
+    <h1 class="sign-up">Sign Up</h1>
+    <div align="center">
+        <form name="form" ng-submit="createUser(form)">
+            <div>
+                <input class="form-control" type="text" placeholder="Username" name="name" required ng-model="name"
+                       ng-minlength="2" ng-maxlength="20">
+            </div>
+            <div>
+                <input class="form-control" type="email" placeholder="Email" name="email" required ng-model="email">
+
+            </div>
+            <div>
+                <input class="form-control" type="password" placeholder="Password" name="password" required
+                       ng-model="password" ng-minlength="5">
+            </div>
+            <div align="center">
+                <!--            <button class="btn-primary" type="submit" ng-disabled="!(form.email.$valid && form.name.$valid && form.password.$valid)">Sign Up</button><br>-->
+                <button class="btn-primary" type="submit" ng-disabled="form.$invalid">Sign Up</button>
+                <br>
+            </div>
+        </form>
+    </div>
+    <p class="text-xs-center">
+        <a class="link" href="#/login">
+            Have an account?
+        </a>
+    </p>
+    <button class="btn-primary secondary" type="submit" ng-click="getUser()">Show User</button>
+    <br><br>
+    <button class="btn-primary secondary" type="submit" ng-click="getProducts()">Show Products</button>
+    <br><br>
+    <div>
+        <table>
+            <caption style="padding-bottom: 30px; font-size: 40px;">User Record</caption>
+            <thead>
+            <col style="width: 300px">
+            <col style="width: 400px">
+            <col style="width: 250px"
+            " >
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in userData">
+                <td>{{user.name}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.password}}</td>
+                <td class="btn-primary del-btn" ng-click="delete(user.username)">Delete</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div ui-view ng-if="isRequired()"></div>

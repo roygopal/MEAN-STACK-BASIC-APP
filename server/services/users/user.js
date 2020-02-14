@@ -1,15 +1,16 @@
-let userModel = require('./models/model');
+let Users = require('./models/model');
 
 module.exports = {
     createUsers: function (req, res) {
         let userDetail = req.body;
-        let newUser = new userModel({name: userDetail.name, username: userDetail.email, password: userDetail.password});
+        let newUser = new Users({name: userDetail.name, username: userDetail.email, password: userDetail.password});
         console.log("Hit create user", userDetail);
-        return newUser.save((err) => {
+        newUser.save((err, result) => {
             if (err) {
                 res.status(504);
                 res.end(err);
-            } else {
+            }
+            if (result) {
                 console.log('user saved');
                 res.status(200);
                 res.end();
@@ -17,7 +18,7 @@ module.exports = {
         });
     },
     getUser: function (req, res) {
-        userModel.find({}, (err, docs) => {
+        Users.find({}, (err, docs) => {
             if (err) {
                 res.status(504);
                 res.end(err);
@@ -28,7 +29,7 @@ module.exports = {
         });
     },
     deleteUser: function (req, res) {
-        userModel.remove({username: req.params.email}, (err, result) => {
+        Users.remove({username: req.params.email}, (err, result) => {
             if (err) {
                 res.status(504);
                 res.end(err);

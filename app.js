@@ -1,39 +1,35 @@
 var express  = require('express');
-var app      = express(); 								// create our app w/ express
-var mongoose = require('mongoose'); 					// mongoose for mongodb
-var port = process.env.PORT || 8080; 				// set the port
-var database = require('./config/database'); 			// load the database config
+var mongoose = require('mongoose'); // mongoose for mongodb
+var database = require('./config/database'); // load the database config
+const open = require('open');
+var morgan = require('morgan');
+var bodyParser = require('body-parser'); // pull information from HTTP POST (express4)
 
-var morgan = require('morgan'); 		// log requests to the console (express4)
-var bodyParser = require('body-parser'); 	// pull information from HTML POST (express4)
-//var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+var app      = express(); // create our app w/ express
+var port = process.env.PORT || 8080; // set the port
 
-// configuration ===============================================================
-mongoose.connect(database.url, (err, db) => {
-    if (err) {
-        console.log("error connecting");
-    }
-    else {
-        console.log("connected", db);
-    }
+// Connect to MongoDB
+mongoose
+    .connect(database.url, {useNewUrlParser: true})
+    .then(() => console.log('MongoDB Connected...'))
+    .catch(err => console.log(err));
 
-}); 	// connect to mongoDB database on modulus.io
-
-app.use(express.static(__dirname + '/client/users')); 				// set the static files location /public/img will be /img for users
-app.use(morgan('dev')); 										// log every request to the console
-app.use(bodyParser.urlencoded({'extended': 'true'})); 			// parse application/x-www-form-urlencoded
-app.use(bodyParser.json()); 									// parse application/json
+app.use(express.static(__dirname + '/client/users'));
+app.use(morgan('dev')); // log every request to the console
+app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());
 
 // routes ======================================================================
 let user = require('./server/services/users/user');
 
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+app.get('/', function (req, res, next) {
+    res.sendFile(__dirname + '/client/users/index.html');
 });
 app.post('/users', user.createUsers);
 app.get('/users', user.getUser);
 app.delete('/users/:email', user.deleteUser);
 
-// listen (start app with node server.js) ======================================
-app.listen(port);
-console.log("App listening on port " + port);
+// listen (start app with node app.js) ======================================
+app.listen(port, () => console.log(`Server started on port ${port}`));
+const url = `http://localhost:${port}/`;
+open(url, {app: 'google chrome'}); // open a new tab in chrome on start of server

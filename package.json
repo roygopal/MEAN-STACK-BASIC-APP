@@ -1,21 +1,21 @@
 {
-  "name": "node-user",
+  "name": "product-info-app",
   "version": "1.0.0",
   "private": true,
   "main": "app.js",
-  "description": "simple user registration application",
+  "description": "Simple product display application",
   "scripts": {
     "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "angular": "1.7.9",
     "angular-resource": "1.7.9",
-    "body-parser": "~1.5.2",
+    "body-parser": "^1.18.3",
     "browserify": "9.0.3",
-    "express": "~4.7.2",
+    "express": "^4.16.3",
     "lodash": "4.0.0",
     "method-override": "~2.1.2",
-    "mongoose": "~5.9.0",
+    "mongoose": "^5.2.8",
     "morgan": "~1.2.2",
     "require": "^2.4.20"
   },
@@ -25,7 +25,8 @@
     "chai": "^4.1.2",
     "mocha": "^5.1.1",
     "webpack": "^4.41.4",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "open": "7.0.0"
   },
   "engine": {
     "node": ">=8.12.0"

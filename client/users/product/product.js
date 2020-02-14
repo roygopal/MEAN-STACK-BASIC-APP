@@ -12,6 +12,7 @@ module.exports = function MainController ($scope, $filter, productFactory) {
     $scope.sortProduct = 'Relevance';
     $scope.searchCount = 0;
     $scope.minValue = 'Min';
+    $scope.selectedColor = [];
     $scope.maxValue = Number.MAX_SAFE_INTEGER;
     $scope.getProduct = getProduct;
     $scope.getFilter = getFilter;
@@ -24,15 +25,14 @@ module.exports = function MainController ($scope, $filter, productFactory) {
     init();
 
     // GET =====================================================================
-    function getFilterProduct() {
+    function getFilterProduct(filterObject) {
         getProduct()
-            .success(data => {
-                let colour = [];
-                $scope.productData = data.products;
-                for (let i = 0; i < $scope.colorValues.length; i++) {
-                    if ($scope.colorValues[i].Selected) {
-                        colour.push($scope.colorValues[i].title.toLowerCase())
-                    }
+            .then(data => {
+                $scope.productData = data;
+                if (filterObject && filterObject.colorValue) {
+                    var index = $scope.selectedColor.indexOf(filterObject.colorValue);
+                    if (index > -1) $scope.selectedColor.splice(index, 1);
+                    else $scope.selectedColor.push(filterObject.colorValue);
                 }
                 if ($scope.searchTerm && $scope.searchTerm.length >= 2) {
                     $scope.productData = $filter('filterByBrand')($scope.productData, $scope.searchTerm);
@@ -40,15 +40,15 @@ module.exports = function MainController ($scope, $filter, productFactory) {
                 if ($scope.minValue || $scope.maxValue) {
                     $scope.productData = $filter('filterByPrice')($scope.productData, $scope.minValue, $scope.maxValue);
                 }
-                if (colour.length) {
-                    $scope.productData = $filter('filterByColor')($scope.productData, colour);
+                if ($scope.selectedColor.length) {
+                    $scope.productData = $filter('filterByColor')($scope.productData, $scope.selectedColor);
                 }
                 if ($scope.sortProduct) {
                     sortProductByPrice($scope.sortProduct);
                 }
                 $scope.searchCount = $scope.productData.length;
 
-            }).error(err => {
+            }).catch(err => {
             console.log('SomeThing bad in getting product Info !', err);
             throw err;
         });
