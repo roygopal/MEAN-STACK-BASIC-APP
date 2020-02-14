@@ -1,4 +1,5 @@
 module.exports = {
     // the database url to connect
-    url: 'mongodb://localhost:27017/myAppDataBase'
+    url: 'mongodb+srv://gopal:App@32g@gopal-ni5pw.mongodb.net/appDatabase',
+    secretOrKey: 'secret'
 };
