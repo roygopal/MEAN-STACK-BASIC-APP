@@ -18,7 +18,7 @@ module.exports = {
         });
     },
     getUser: function (req, res) {
-        Users.find({}, (err, docs) => {
+        Users.find({}, {password: 0}, (err, docs) => {
             if (err) {
                 res.status(504);
                 res.end(err);

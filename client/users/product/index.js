@@ -2,4 +2,4 @@
 
 // @ngInject
 module.exports = angular.module('build.products', [])
-    .controller('productCtrl', require('./product'));
+    .controller('productCtrl', require('./product.controller'));

@@ -18,7 +18,7 @@ module.exports = function MainController ($scope, $filter, productFactory) {
     $scope.getFilter = getFilter;
     $scope.getFilterProduct = getFilterProduct;
     $scope.sortProductByPrice = sortProductByPrice;
-    let init = function () {
+    const init = function () {
         getFilter();
         getProduct();
     };

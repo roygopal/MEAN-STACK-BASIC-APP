@@ -1,11 +1,12 @@
 'use strict';
 
 require('../common/index');
-require('./login');
+require('./signIn');
 require('./product');
+require('./userList');
 
 // @ngInject
-angular.module('productInfo', ['ui.router', 'build.common', 'build.signIn', 'build.products'])
+angular.module('productInfo', ['ui.router', 'build.common', 'build.signIn', 'build.products', 'build.userList'])
     .config(['$stateProvider', '$compileProvider', '$httpProvider', '$locationProvider', '$urlRouterProvider', '$urlMatcherFactoryProvider', function ($stateProvider, $compileProvider, $httpProvider, $locationProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
         $compileProvider.debugInfoEnabled(false);
         $httpProvider.useApplyAsync(true);
@@ -18,13 +19,18 @@ angular.module('productInfo', ['ui.router', 'build.common', 'build.signIn', 'bui
         $stateProvider
             .state('signIn', {
                     controller: 'userServiceCtrl',
-                    templateUrl: 'login/signIn.html',
+                    templateUrl: 'signIn/signIn.html',
                     url: '/'
             })
             .state('products', {
                 controller: 'productCtrl',
                 templateUrl: 'product/product.html',
                 url: '/products'
+            })
+            .state('userList', {
+                controller: 'userListCtrl',
+                templateUrl: 'userList/user-list.html',
+                url: '/userList'
             });
     }]);
     /*.run(['$route', function($route) {
